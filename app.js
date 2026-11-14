@@ -185,7 +185,14 @@ function createRipple(x, y) {
   setTimeout(() => ripple.remove(), 600);
 }
 
+let lastTapTime = 0;
+const TAP_COOLDOWN_MS = 180;
+
 function handleTap(e) {
+  const now = Date.now();
+  if (now - lastTapTime < TAP_COOLDOWN_MS) return;
+  lastTapTime = now;
+
   let clientX = null;
   let clientY = null;
   if (e && e.touches && e.touches.length > 0) {
@@ -203,11 +210,11 @@ function handleTap(e) {
   playClickSound(reachedTarget);
 
   if (navigator.vibrate) {
-    navigator.vibrate(reachedTarget ? [30, 50, 30] : 15);
+    navigator.vibrate(reachedTarget ? [60, 70, 60] : 35);
   }
 
   tapZone.classList.add('tapped');
-  setTimeout(() => tapZone.classList.remove('tapped'), 100);
+  setTimeout(() => tapZone.classList.remove('tapped'), 130);
   createRipple(clientX, clientY);
 
   saveState();
@@ -215,8 +222,7 @@ function handleTap(e) {
 }
 
 // Event Listeners
-tapZone.addEventListener('pointerdown', (e) => {
-  if (e.button !== 0 && e.pointerType === 'mouse') return;
+tapZone.addEventListener('click', (e) => {
   handleTap(e);
 });
 
