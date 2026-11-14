@@ -5,7 +5,9 @@ const DHIKR_PRESETS = [
   { id: 'tahlil', name: 'La ilaha illallah', arabic: 'لَا إِلَٰهَ إِلَّا اللَّهُ', meaning: 'Tiada Tuhan Selain Allah', defaultTarget: 100 },
   { id: 'istighfar', name: 'Astaghfirullah', arabic: 'أَسْتَغْفِرُ اللَّهَ', meaning: 'Aku Memohon Ampun kepada Allah', defaultTarget: 100 },
   { id: 'shalawat', name: 'Shalawat Nabi', arabic: 'اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ', meaning: 'Ya Allah, Limpahkan Rahmat atas Nabi Muhammad', defaultTarget: 100 },
-  { id: 'sholallahu', name: "Shalallahu 'ala Muhammad", arabic: 'صَلَّى اللَّهُ عَلَى مُحَمَّدٍ', meaning: 'Semoga Allah Melimpahkan Rahmat kepada Nabi Muhammad', defaultTarget: 100 }
+  { id: 'sholallahu', name: "Shalallahu 'ala Muhammad", arabic: 'صَلَّى اللَّهُ عَلَى مُحَمَّدٍ', meaning: 'Semoga Allah Melimpahkan Rahmat kepada Nabi Muhammad', defaultTarget: 100 },
+  { id: 'qulhu', name: 'Qulhu (Al-Ikhlas)', arabic: 'قُلْ هُوَ اللَّهُ أَحَدٌ', meaning: 'Katakanlah: Dialah Allah, Yang Maha Esa', defaultTarget: 33 },
+  { id: 'hasbunallah', name: "Hasbunallah Wa Ni'mal Wakil", arabic: 'حَسْبُنَا اللَّهُ وَنِعْمَ الْوَكِيلُ', meaning: 'Cukuplah Allah menjadi Penolong kami', defaultTarget: 100 }
 ];
 
 const STORAGE_KEY = 'tasbih_app_state_v1';
