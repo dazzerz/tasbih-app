@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  
+  <!-- iOS Web App / PWA Meta Tags -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Tasbih">
+  <meta name="theme-color" content="#0b1914">
+  
+  <title>Tasbih Digital</title>
+  
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icon.svg">
+  <link rel="icon" type="image/svg+xml" href="icon.svg">
+  
+  <!-- Google Fonts for clean UI & Arabic typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="theme-emerald">
+  <div class="app-container">
+    <!-- Top Header -->
+    <header class="top-bar">
+      <button id="btn-dhikr-select" class="pill-btn" aria-label="Pilih Dzikir">
+        <span id="current-dhikr-name">SubhanAllah</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+      </button>
+
+      <div class="top-actions">
+        <button id="btn-sound" class="icon-btn" aria-label="Suara">
+          <svg id="icon-sound-on" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path></svg>
+          <svg id="icon-sound-off" class="hidden" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line></svg>
+        </button>
+        <button id="btn-theme" class="icon-btn" aria-label="Ganti Tema">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Dhikr Display Card -->
+    <section class="dhikr-display">
+      <div id="dhikr-arabic" class="arabic-text" dir="rtl">سُبْحَانَ اللَّهِ</div>
+      <div id="dhikr-meaning" class="meaning-text">Maha Suci Allah</div>
+    </section>
+
+    <!-- Main Interactive Tap Area -->
+    <main id="tap-zone" class="tap-zone" role="button" tabindex="0" aria-label="Ketuk untuk menghitung dzikir">
+      <div class="counter-ring-wrapper">
+        <svg class="progress-ring" viewBox="0 0 260 260">
+          <circle class="progress-ring-bg" cx="130" cy="130" r="114"></circle>
+          <circle id="progress-circle" class="progress-ring-fill" cx="130" cy="130" r="114"></circle>
+        </svg>
+        
+        <!-- Animated Beads Orbit -->
+        <div id="beads-orbit" class="beads-orbit"></div>
+
+        <div class="counter-center">
+          <div id="count-display" class="count-number">0</div>
+          <div class="target-badge">
+            Target: <span id="target-display">33</span>
+          </div>
+        </div>
+      </div>
+      <div class="tap-hint">Ketuk di mana saja pada area ini</div>
+    </main>
+
+    <!-- Bottom Controls -->
+    <footer class="bottom-bar">
+      <div class="stats-pill">
+        <span class="stats-label">Total</span>
+        <span id="total-display" class="stats-value">0</span>
+      </div>
+
+      <div class="control-buttons">
+        <button id="btn-undo" class="ctrl-btn" aria-label="Kurangi 1">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7v6h6"></path><path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13"></path></svg>
+          <span>Undo</span>
+        </button>
+        <button id="btn-target" class="ctrl-btn" aria-label="Ubah Target">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>
+          <span>Target</span>
+        </button>
+        <button id="btn-reset" class="ctrl-btn danger" aria-label="Reset Hitungan">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
+          <span>Reset</span>
+        </button>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Bottom Sheet: Dhikr Selector -->
+  <div id="modal-dhikr" class="modal-backdrop hidden">
+    <div class="bottom-sheet">
+      <div class="sheet-handle"></div>
+      <div class="sheet-header">
+        <h2>Pilih Dzikir</h2>
+        <button id="close-dhikr-modal" class="close-btn">&times;</button>
+      </div>
+      <div id="dhikr-list" class="dhikr-list"></div>
+    </div>
+  </div>
+
+  <!-- Bottom Sheet: Target Selector -->
+  <div id="modal-target" class="modal-backdrop hidden">
+    <div class="bottom-sheet">
+      <div class="sheet-handle"></div>
+      <div class="sheet-header">
+        <h2>Atur Target</h2>
+        <button id="close-target-modal" class="close-btn">&times;</button>
+      </div>
+      <div class="target-grid">
+        <button class="target-option" data-target="33">33</button>
+        <button class="target-option" data-target="99">99</button>
+        <button class="target-option" data-target="100">100</button>
+        <button class="target-option" data-target="1000">1000</button>
+        <button class="target-option" data-target="0">Tanpa Batas (∞)</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
